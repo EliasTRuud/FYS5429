@@ -1,0 +1,860 @@
+<!--
+HTML file automatically generated from DocOnce source
+(https://github.com/doconce/doconce/)
+doconce format html week16.do.txt --pygments_html_style=perldoc --html_style=solarized3 --html_links_in_new_window --html_output=week16-solarized --no_mako
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="DocOnce: https://github.com/doconce/doconce/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Advanced machine learning and data analysis for the physical sciences">
+<title>Advanced machine learning and data analysis for the physical sciences</title>
+<link href="https://cdn.rawgit.com/doconce/doconce/master/bundled/html_styles/style_solarized_box/css/solarized_light_code.css" rel="stylesheet" type="text/css" title="light"/>
+<script src="https://cdn.rawgit.com/doconce/doconce/master/bundled/html_styles/style_solarized_box/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<link href="https://thomasf.github.io/solarized-css/solarized-light.min.css" rel="stylesheet">
+<style type="text/css">
+h1 {color: #b58900;}  /* yellow */
+/* h1 {color: #cb4b16;}  orange */
+/* h1 {color: #d33682;}  magenta, the original choice of thomasf */
+code { padding: 0px; background-color: inherit; }
+pre {
+  border: 0pt solid #93a1a1;
+  box-shadow: none;
+}
+.alert-text-small   { font-size: 80%;  }
+.alert-text-large   { font-size: 130%; }
+.alert-text-normal  { font-size: 90%;  }
+.alert {
+  padding:8px 35px 8px 14px; margin-bottom:18px;
+  text-shadow:0 1px 0 rgba(255,255,255,0.5);
+  border:1px solid #93a1a1;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  color: #555;
+  background-color: #eee8d5;
+  background-position: 10px 5px;
+  background-repeat: no-repeat;
+  background-size: 38px;
+  padding-left: 55px;
+  width: 75%;
+ }
+.alert-block {padding-top:14px; padding-bottom:14px}
+.alert-block > p, .alert-block > ul {margin-bottom:1em}
+.alert li {margin-top: 1em}
+.alert-block p+p {margin-top:5px}
+.alert-notice { background-image: url(https://cdn.rawgit.com/doconce/doconce/master/bundled/html_images/small_yellow_notice.png); }
+.alert-summary  { background-image:url(https://cdn.rawgit.com/doconce/doconce/master/bundled/html_images/small_yellow_summary.png); }
+.alert-warning { background-image: url(https://cdn.rawgit.com/doconce/doconce/master/bundled/html_images/small_yellow_warning.png); }
+.alert-question {background-image:url(https://cdn.rawgit.com/doconce/doconce/master/bundled/html_images/small_yellow_question.png); }
+div { text-align: justify; text-justify: inter-word; }
+.tab {
+  padding-left: 1.5em;
+}
+div.toc p,a {
+  line-height: 1.3;
+  margin-top: 1.1;
+  margin-bottom: 1.1;
+}
+</style>
+</head>
+
+<!-- tocinfo
+{'highest level': 2,
+ 'sections': [('Plans for the week of May 6-10, 2024',
+               2,
+               None,
+               'plans-for-the-week-of-may-6-10-2024'),
+              ('Reminder from last week, what is a GAN?',
+               2,
+               None,
+               'reminder-from-last-week-what-is-a-gan'),
+              ('Labeling the networks', 2, None, 'labeling-the-networks'),
+              ('Which data?', 2, None, 'which-data'),
+              ('Semi-supervised learning', 2, None, 'semi-supervised-learning'),
+              ('Improving functionalities',
+               2,
+               None,
+               'improving-functionalities'),
+              ('Setup of the GAN', 2, None, 'setup-of-the-gan'),
+              ('Optimization part', 2, None, 'optimization-part'),
+              ('Minimax game', 2, None, 'minimax-game'),
+              ('Optimal value for $D$', 2, None, 'optimal-value-for-d'),
+              ('Best value of $D$', 2, None, 'best-value-of-d'),
+              ('Integral evaluation', 2, None, 'integral-evaluation'),
+              ('Best values', 2, None, 'best-values'),
+              ('At their optimal values', 2, None, 'at-their-optimal-values'),
+              ('What does the Loss Function Represent?',
+               2,
+               None,
+               'what-does-the-loss-function-represent'),
+              ('What does the loss function quantify?',
+               2,
+               None,
+               'what-does-the-loss-function-quantify'),
+              ('Problems with GANs', 2, None, 'problems-with-gans'),
+              ('Vanishing Gradient', 2, None, 'vanishing-gradient'),
+              ('Improved GANs', 2, None, 'improved-gans'),
+              ('More codes', 2, None, 'more-codes'),
+              ('Diffusion models, basics', 2, None, 'diffusion-models-basics'),
+              ('Problems with probabilistic models',
+               2,
+               None,
+               'problems-with-probabilistic-models'),
+              ('Diffusion models', 2, None, 'diffusion-models'),
+              ('Original idea', 2, None, 'original-idea'),
+              ('Diffusion learning', 2, None, 'diffusion-learning'),
+              ('Mathematics of diffusion models',
+               2,
+               None,
+               'mathematics-of-diffusion-models'),
+              ('Chains of VAEs', 2, None, 'chains-of-vaes'),
+              ('Mathematical representation',
+               2,
+               None,
+               'mathematical-representation'),
+              ('Back to the marginal probability',
+               2,
+               None,
+               'back-to-the-marginal-probability'),
+              ('Diffusion models for hierarchical VAE, from '
+               'URL:"https://arxiv.org/abs/2208.11970"',
+               2,
+               None,
+               'diffusion-models-for-hierarchical-vae-from-url-https-arxiv-org-abs-2208-11970'),
+              ('Equation for the Markovian hierarchical VAE',
+               2,
+               None,
+               'equation-for-the-markovian-hierarchical-vae'),
+              ('Variational Diffusion Models',
+               2,
+               None,
+               'variational-diffusion-models'),
+              ('Second assumption', 2, None, 'second-assumption'),
+              ('Parameterizing Gaussian encoder',
+               2,
+               None,
+               'parameterizing-gaussian-encoder'),
+              ('Encoder transitions', 2, None, 'encoder-transitions'),
+              ('Third assumption', 2, None, 'third-assumption'),
+              ('Noisification', 2, None, 'noisification'),
+              ('Diffusion models, from URL:"https://arxiv.org/abs/2208.11970"',
+               2,
+               None,
+               'diffusion-models-from-url-https-arxiv-org-abs-2208-11970'),
+              ('Gaussian modeling', 2, None, 'gaussian-modeling'),
+              ('Optimizing the variational diffusion model',
+               2,
+               None,
+               'optimizing-the-variational-diffusion-model'),
+              ('Continues', 2, None, 'continues'),
+              ('Interpretations', 2, None, 'interpretations'),
+              ('The last term', 2, None, 'the-last-term'),
+              ('Diffusion models, part 2, from '
+               'URL:"https://arxiv.org/abs/2208.11970"',
+               2,
+               None,
+               'diffusion-models-part-2-from-url-https-arxiv-org-abs-2208-11970'),
+              ('Optimization cost', 2, None, 'optimization-cost'),
+              ('More details', 2, None, 'more-details')]}
+end of tocinfo -->
+
+<body>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+     equationNumbers: {  autoNumber: "AMS"  },
+     extensions: ["AMSmath.js", "AMSsymbols.js", "autobold.js", "color.js"]
+  }
+});
+</script>
+<script type="text/javascript" async
+ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- ------------------- main content ---------------------- -->
+<center>
+<h1>Advanced machine learning and data analysis for the physical sciences</h1>
+</center>  <!-- document title -->
+
+<!-- author(s): Morten Hjorth-Jensen -->
+<center>
+<b>Morten Hjorth-Jensen</b> [1, 2]
+</center>
+<!-- institution(s) -->
+<center>
+[1] <b>Department of Physics and Center for Computing in Science Education, University of Oslo, Norway</b>
+</center>
+<center>
+[2] <b>Department of Physics and Astronomy and Facility for Rare Isotope Beams, Michigan State University, East Lansing, Michigan, USA</b>
+</center>
+<br>
+<center>
+<h4>May 7, 2024</h4>
+</center> <!-- date -->
+<br>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="plans-for-the-week-of-may-6-10-2024">Plans for the week of May 6-10, 2024  </h2>
+
+<div class="alert alert-block alert-block alert-text-normal">
+<b>Generative models</b>
+<p>
+<ol>
+<li> Finalizing discussion of Generative Adversarial Networks</li>
+<li> Mathematics of diffusion models and selected examples</li>
+<li> <a href="https://youtu.be/lYgKGCQRUhQ" target="_blank">Video of lecture</a></li>
+<li> <a href="https://github.com/CompPhysics/AdvancedMachineLearning/blob/main/doc/HandwrittenNotes/2024/NotesMay7.pdf" target="_blank">Whiteboard notes</a></li>
+</ol>
+</div>
+
+
+<div class="alert alert-block alert-block alert-text-normal">
+<b>Reading on diffusion models</b>
+<p>
+<ol>
+<li> A central paper is the one by Sohl-Dickstein et al, Deep Unsupervised Learning using Nonequilibrium Thermodynamics, <a href="https://arxiv.org/abs/1503.03585" target="_blank"><tt>https://arxiv.org/abs/1503.03585</tt></a></li>
+<li> Calvin Luo at <a href="https://arxiv.org/abs/2208.11970" target="_blank"><tt>https://arxiv.org/abs/2208.11970</tt></a></li>
+<li> See also Diederik P. Kingma, Tim Salimans, Ben Poole, Jonathan Ho, Variational Diffusion Models, <a href="https://arxiv.org/abs/2107.00630" target="_blank"><tt>https://arxiv.org/abs/2107.00630</tt></a></li>
+</ol>
+</div>
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="reminder-from-last-week-what-is-a-gan">Reminder from last week, what is a GAN? </h2>
+
+<p>A GAN is a deep neural network which consists of two networks, a
+so-called generator network and a discriminating network, or just
+discriminator. Through several iterations of generation and
+discrimination, the idea is that these networks will train each other,
+while also trying to outsmart each other.
+</p>
+
+<p>In its simplest version, the two networks could be two standard neural networks with a given number of hidden of hidden layers and parameters to train.
+The generator we have trained can then be used to produce new images.
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="labeling-the-networks">Labeling the networks </h2>
+
+<p>For a GAN we have: </p>
+<ol>
+<li> a discriminator \( D \) estimates the probability of a given sample coming from the real dataset. It attempts at discriminating the trained data by the generator and is optimized to tell the fake samples from the real ones (our data set). We say a  discriminator tries to distinguish between real data and those generated by the abovementioned generator.</li>
+<li> a generator \( G \) outputs synthetic samples given a noise variable input \( z \) (\( z \) brings in potential output diversity). It is trained to capture the real data distribution in order to generate samples that can be as real as possible, or in other words, can trick the discriminator to offer a high probability.</li>
+</ol>
+<p>At the end of the training, the generator can be used to generate for
+example new images. In this sense we have trained a model which can
+produce new samples. We say that we have implicitely defined a
+probability.
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="which-data">Which data? </h2>
+
+<p><b>GANs are generally a form of unsupervised machine learning</b>, although
+they also incorporate aspects of supervised learning. Internally the
+discriminator sets up a supervised learning problem. Its goal is to
+learn to distinguish between the two classes of generated data and
+original data. The generator then considers this classification
+problem and tries to find adversarial examples, that is  samples which
+will be misclassified by the discriminator.
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="semi-supervised-learning">Semi-supervised learning </h2>
+
+<p>One can also design GAN architectures which work in a
+semi-supervised learning setting. A semi-supervised learning environment includes both labeled and unlabeled data.
+See <a href="https://proceedings.neurips.cc/paper_files/paper/2016/file/8a3363abe792db2d8761d6403605aeb7-Paper.pdf" target="_blank"><tt>https://proceedings.neurips.cc/paper_files/paper/2016/file/8a3363abe792db2d8761d6403605aeb7-Paper.pdf</tt></a> for a further discussion.
+</p>
+
+<p>Thus, GANs can be used both on labeled and on unlabeled data and are used in three most commonly used contexts, that is</p>
+<ol>
+<li> with labeled data (supervised training)</li>
+<li> with unlabeled data (unsupervised learning)</li>
+<li> a with a mix labed and unlabeled  data</li>
+</ol>
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="improving-functionalities">Improving functionalities </h2>
+
+<p>These two models compete against each other during the training
+process: the generator \( G \) is trying hard to trick the discriminator,
+while the critic model \( D \) is trying hard not to be cheated. This
+interesting zero-sum game between two models motivates both to improve
+their functionalities.
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="setup-of-the-gan">Setup of the GAN </h2>
+
+<p>We define a probability \( p_{\boldsymbol{h}} \) which is used by the
+generator. Usually it is given by a uniform distribution over the
+input \( \boldsymbol{h} \). Thereafter we define the distribution of the
+generator which we want to train, \( p_{g} \) This is the generator's
+distribution over the data \( \boldsymbol{x} \). Finally, we have the distribution
+\( p_{r} \) over the real sample \( \boldsymbol{x} \)
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="optimization-part">Optimization part </h2>
+
+<p>On one hand, we want to make sure the discriminator \( D \)'s decisions
+over real data are accurate by maximizing \( \mathbb{E}_{\boldsymbol{x} \sim
+p_{r}(\boldsymbol{x})} [\log D(\boldsymbol{x})] \). Meanwhile, given a fake sample \( G(\boldsymbol{h}), \boldsymbol{h} \sim
+p_{\boldsymbol{h}}(\boldsymbol{h}) \), the discriminator is expected to output a probability,
+\( D(G(\boldsymbol{h})) \), close to zero by maximizing \( \mathbb{E}_{\boldsymbol{h} \sim p_{\boldsymbol{h}}(\boldsymbol{h})}
+[\log (1 - D(G(\boldsymbol{h})))] \).
+</p>
+
+<p>On the other hand, the generator is trained to increase the chances of
+\( D \) producing a high probability for a fake example, thus to minimize
+\( \mathbb{E}_{\boldsymbol{h} \sim p_{\boldsymbol{h}}(\boldsymbol{h})} [\log (1 - D(G(\boldsymbol{h})))] \).
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="minimax-game">Minimax game </h2>
+
+<p>When combining both aspects together, \( D \) and \( G \) are playing a <b>minimax game</b> in which we should optimize the following loss function:</p>
+
+$$
+\begin{aligned}
+\min_G \max_D L(D, G) 
+& = \mathbb{E}_{\boldsymbol{x} \sim p_{r}(\boldsymbol{x})} [\log D(\boldsymbol{x})] + \mathbb{E}_{\boldsymbol{h} \sim p_{\boldsymbol{h}}(\boldsymbol{h})} [\log(1 - D(G(\boldsymbol{h})))] \\
+& = \mathbb{E}_{\boldsymbol{x} \sim p_{r}(\boldsymbol{x})} [\log D(\boldsymbol{x})] + \mathbb{E}_{\boldsymbol{x} \sim p_g(\boldsymbol{x})} [\log(1 - D(\boldsymbol{x})]
+\end{aligned}
+$$
+
+<p>where \( \mathbb{E}_{\boldsymbol{x} \sim p_{r}(\boldsymbol{x})} [\log D(\boldsymbol{x})] \) has no impact on \( G \) during gradient descent updates.</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="optimal-value-for-d">Optimal value for \( D \) </h2>
+
+<p>Now we have a well-defined loss function. Let's first examine what is the best value for \( D \).</p>
+
+$$
+L(G, D) = \int_{\boldsymbol{x}} \bigg( p_{r}(\boldsymbol{x}) \log(D(\boldsymbol{x})) + p_g (\boldsymbol{x}) \log(1 - D(\boldsymbol{x})) \bigg) d\boldsymbol{x}
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="best-value-of-d">Best value of \( D \) </h2>
+<p>Since we are interested in what is the best value of \( D(\boldsymbol{x}) \) to maximize \( L(G, D) \), let us label </p>
+
+$$
+\tilde{\boldsymbol{x}} = D(\boldsymbol{x}), 
+A=p_{r}(\boldsymbol{x}), 
+B=p_g(\boldsymbol{x})
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="integral-evaluation">Integral evaluation </h2>
+
+<p>The integral (we can safely ignore the integral because \( \boldsymbol{x} \) is sampled over all the possible values) is:</p>
+
+$$
+\begin{align*}
+f(\tilde{\boldsymbol{x}}) 
+& = A \log{\tilde{\boldsymbol{x}}} + B \log{(1-\tilde{\boldsymbol{x}})} \\
+\frac{d f(\tilde{\boldsymbol{x}})}{d \tilde{\boldsymbol{x}}} & = A \frac{1}{\tilde{\boldsymbol{x}}} - B\frac{1}{1 - \tilde{\boldsymbol{x}}} \\
+& = \frac{A - (A + B)\tilde{\boldsymbol{x}}} {\tilde{\boldsymbol{x}} (1 - \tilde{\boldsymbol{x}})}. \\
+\end{align*}
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="best-values">Best values </h2>
+
+<p>If we set</p>
+
+$$
+\frac{d f(\tilde{\boldsymbol{x}})}{d \tilde{\boldsymbol{x}}} = 0,
+$$
+
+<p>we get
+the best value of the discriminator:
+</p>
+
+$$
+D^*(\boldsymbol{x}) = \tilde{\boldsymbol{x}}^* =\frac{A}{A + B} = \frac{p_{r}(\boldsymbol{x})}{p_{r}(\boldsymbol{x}) + p_g(\boldsymbol{x})}
+\in [0, 1].
+$$
+
+<p>Once the generator is trained to its optimal, \( p_g \) gets
+very close to \( p_{r} \). When \( p_g = p_{r} \), \( D^*(\boldsymbol{x}) \) becomes
+\( 1/2 \). We will observe this when running the code from last week (see jupyter-notebook from week 15).
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="at-their-optimal-values">At their optimal values </h2>
+
+<p>When both \( G \) and \( D \) are at their optimal values, we have \( p_g = p_{r} \) and \( D^*(\boldsymbol{x}) = 1/2 \), the loss function becomes</p>
+
+$$
+\begin{align*}
+L(G, D^*) 
+&= \int_{\boldsymbol{x}} \bigg( p_{r}(\boldsymbol{x}) \log(D^*(\boldsymbol{x})) + p_g (\boldsymbol{x}) \log(1 - D^*(\boldsymbol{x})) \bigg) d\boldsymbol{x} \\
+&= \log \frac{1}{2} \int_{\boldsymbol{h}} p_{r}(\boldsymbol{x}) d\boldsymbol{x} + \log \frac{1}{2} \int_{\boldsymbol{x}} p_g(\boldsymbol{x}) d\boldsymbol{x} \\
+&= -2\log2
+\end{align*}
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="what-does-the-loss-function-represent">What does the Loss Function Represent? </h2>
+
+<p>The JS divergence between \( p_{r} \) and \( p_g \) can be computed as:</p>
+
+$$
+\begin{align*}
+D_{JS}(p_{r} \| p_g) 
+=& \frac{1}{2} D_{KL}(p_{r} || \frac{p_{r} + p_g}{2}) + \frac{1}{2} D_{KL}(p_{g} || \frac{p_{r} + p_g}{2}) \\
+=& \frac{1}{2} \bigg( \log2 + \int_x p_{r}(\boldsymbol{x}) \log \frac{p_{r}(\boldsymbol{x})}{p_{r} + p_g(\boldsymbol{x})} d\boldsymbol{x} \bigg) + \\& \frac{1}{2} \bigg( \log2 + \int_x p_g(\boldsymbol{x}) \log \frac{p_g(\boldsymbol{x})}{p_{r} + p_g(\boldsymbol{x})} d\boldsymbol{x} \bigg) \\
+=& \frac{1}{2} \bigg( \log4 + L(G, D^*) \bigg)
+\end{align*}
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="what-does-the-loss-function-quantify">What does the loss function quantify? </h2>
+
+<p>We have </p>
+
+$$
+L(G, D^*) = 2D_{JS}(p_{r} \| p_g) - 2\log2.
+$$
+
+<p>The loss function of GANs quantifies the similarity between
+the generative data distribution \( p_g \) and the real sample
+distribution \( p_{r} \) by the so-called JS divergence when the discriminator is
+optimal. The best \( G^* \) that replicates the real data distribution
+leads to the minimum \( L(G^*, D^*) = -2\log2 \).
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="problems-with-gans">Problems with GANs </h2>
+
+<p>Although GANs have achieved  great success in the generation of realistic images, the training is not easy; The process is known to be slow and unstable.</p>
+
+<div class="alert alert-block alert-block alert-text-normal">
+<b>Hard to reach equilibrium.</b>
+<p>
+<p>Two models are trained simultaneously to an equilibrium to a
+two-player non-cooperative game. However, each model updates its cost
+independently with no respect to another player in the game. Updating
+the gradient of both models concurrently cannot guarantee a
+convergence.
+</p>
+</div>
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="vanishing-gradient">Vanishing Gradient  </h2>
+
+<p>When the discriminator is perfect, we are guaranteed with
+\( D(\boldsymbol{x}) = 1, \forall \boldsymbol{x} \in p_r \) and \( D(\boldsymbol{x}) = 0, \forall \boldsymbol{x} \in p_g \).
+</p>
+
+<p>Then, the
+loss function \( L \) falls to zero and we end up with no gradient to
+update the loss during learning iterations. One can encouter situations where 
+the discriminator gets better and the gradient vanishes fast.
+</p>
+
+<p>As a result, training GANs may face the following problems </p>
+<ol>
+<li> If the discriminator behaves badly, the generator does not have accurate feedback and the loss function cannot represent the real data</li>
+<li> If the discriminator does a great job, the gradient of the loss function drops down to close to zero and the learning can become slow</li>
+</ol>
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="improved-gans">Improved GANs </h2>
+
+<p>One of the solutions to improved GANs training, is the introduction of
+what is called the Wasserstein diatance, which is a way to compute the
+difference/distance between two probability distribitions. For those
+interested in reading more, we recommend for example chapter 17 of
+Rashcka's et al textbook,
+Machine Learning with PyTorch and Scikit-Learn, chapter 17, see <a href="https://github.com/rasbt/python-machine-learning-book-3rd-edition/tree/master/ch17" target="_blank"><tt>https://github.com/rasbt/python-machine-learning-book-3rd-edition/tree/master/ch17</tt></a>
+</p>
+
+<p>For a definition of the Wasserstein distance, see for example <a href="https://arxiv.org/pdf/2103.01678" target="_blank"><tt>https://arxiv.org/pdf/2103.01678</tt></a></p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="more-codes">More codes </h2>
+
+<div class="alert alert-block alert-block alert-text-normal">
+<b></b>
+<p>
+<ol>
+<li> For codes and background, see Raschka et al, Machine Learning with PyTorch and Scikit-Learn, chapter 17, see <a href="https://github.com/rasbt/python-machine-learning-book-3rd-edition/tree/master/ch17" target="_blank"><tt>https://github.com/rasbt/python-machine-learning-book-3rd-edition/tree/master/ch17</tt></a> for codes</li>
+<li> Babcock and Bali, Generative AI with Python and TensorFlow2, chapter 6 and codes at <a href="https://github.com/raghavbali/generative_ai_with_tensorflow/blob/master/Chapter_6/conditional_gan.ipynb" target="_blank"><tt>https://github.com/raghavbali/generative_ai_with_tensorflow/blob/master/Chapter_6/conditional_gan.ipynb</tt></a></li>
+<li> See also Foster's text Generative Deep Learning and chapter 4 with codes at <a href="https://github.com/davidADSP/Generative_Deep_Learning_2nd_Edition/tree/main/notebooks/04_gan" target="_blank"><tt>https://github.com/davidADSP/Generative_Deep_Learning_2nd_Edition/tree/main/notebooks/04_gan</tt></a></li>
+</ol>
+</div>
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="diffusion-models-basics">Diffusion models, basics </h2>
+
+<p>Diffusion models are inspired by non-equilibrium thermodynamics. They
+define a Markov chain of diffusion steps to slowly add random noise to
+data and then learn to reverse the diffusion process to construct
+desired data samples from the noise. Unlike VAE or flow models,
+diffusion models are learned with a fixed procedure and the latent
+variable has high dimensionality (same as the original data).
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="problems-with-probabilistic-models">Problems with probabilistic models </h2>
+
+<p>Historically, probabilistic models suffer from a tradeoff between two
+conflicting objectives: \textit{tractability} and
+\textit{flexibility}. Models that are \textit{tractable} can be
+analytically evaluated and easily fit to data (e.g. a Gaussian or
+Laplace). However, these models are unable to aptly describe structure
+in rich datasets. On the other hand, models that are \textit{flexible}
+can be molded to fit structure in arbitrary data. For example, we can
+define models in terms of any (non-negative) function \( \phi(\boldsymbol{x}) \)
+yielding the flexible distribution \( p\left(\boldsymbol{x}\right) =
+\frac{\phi\left(\boldsymbol{x} \right)}{Z} \), where \( Z \) is a normalization
+constant. However, computing this normalization constant is generally
+intractable. Evaluating, training, or drawing samples from such
+flexible models typically requires a very expensive Monte Carlo
+process.
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="diffusion-models">Diffusion models </h2>
+<p>Diffusion models have several interesting features</p>
+<ul>
+<li> extreme flexibility in model structure,</li>
+<li> exact sampling,</li>
+<li> easy multiplication with other distributions, e.g. in order to compute a posterior, and</li>
+<li> the model log likelihood, and the probability of individual states, to be cheaply evaluated.</li>
+</ul>
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="original-idea">Original idea </h2>
+
+<p>In the original formulation, one uses a Markov chain to gradually
+convert one distribution into another, an idea used in non-equilibrium
+statistical physics and sequential Monte Carlo. Diffusion models build
+a generative Markov chain which converts a simple known distribution
+(e.g. a Gaussian) into a target (data) distribution using a diffusion
+process. Rather than use this Markov chain to approximately evaluate a
+model which has been otherwise defined, one can  explicitly define the
+probabilistic model as the endpoint of the Markov chain. Since each
+step in the diffusion chain has an analytically evaluable probability,
+the full chain can also be analytically evaluated.
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="diffusion-learning">Diffusion learning </h2>
+
+<p>Learning in this framework involves estimating small perturbations to
+a diffusion process. Estimating small, analytically tractable,
+perturbations is more tractable than explicitly describing the full
+distribution with a single, non-analytically-normalizable, potential
+function.  Furthermore, since a diffusion process exists for any
+smooth target distribution, this method can capture data distributions
+of arbitrary form.
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="mathematics-of-diffusion-models">Mathematics of diffusion models </h2>
+
+<p>Let us go back our discussions of the variational autoencoders from
+last week, see
+<a href="https://github.com/CompPhysics/AdvancedMachineLearning/blob/main/doc/pub/week15/ipynb/week15.ipynb" target="_blank"><tt>https://github.com/CompPhysics/AdvancedMachineLearning/blob/main/doc/pub/week15/ipynb/week15.ipynb</tt></a>. As
+a first attempt at understanding diffusion models, we can think of
+these as stacked VAEs, or better, recursive VAEs.
+</p>
+
+<p>Let us try to see why. As an intermediate step, we consider so-called
+hierarchical VAEs, which can be seen as a generalization of VAEs that
+include multiple hierarchies of latent spaces.
+</p>
+
+<p><b>Note</b>: Many of the derivations and figures here are inspired and borrowed from the excellent exposition of diffusion models by Calvin Luo at <a href="https://arxiv.org/abs/2208.11970" target="_blank"><tt>https://arxiv.org/abs/2208.11970</tt></a>. </p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="chains-of-vaes">Chains of VAEs </h2>
+
+<p>Markovian
+VAEs represent a  generative process where we use  Markov chain to build a hierarchy of VAEs.
+</p>
+
+<p>Each transition down the hierarchy is Markovian, where we decode each
+latent set of variables \( \boldsymbol{h}_t \) in terms of the previous latent variable \( \boldsymbol{h}_{t-1} \).
+Intuitively, and visually, this can be seen as simply stacking VAEs on
+top of each other (see figure next slide).
+</p>
+
+<p>One can think of such a model as a recursive VAE.</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="mathematical-representation">Mathematical representation </h2>
+
+<p>Mathematically, we represent the joint distribution and the posterior
+of a Markovian VAE as
+</p>
+$$
+\begin{align*}
+    p(\boldsymbol{x}, \boldsymbol{h}_{1:T}) &= p(\boldsymbol{h}_T)p_{\boldsymbol{\theta}}(\boldsymbol{x}|\boldsymbol{h}_1)\prod_{t=2}^{T}p_{\boldsymbol{\theta}}(\boldsymbol{h}_{t-1}|\boldsymbol{h}_{t})\\
+    q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x}) &= q_{\boldsymbol{\phi}}(\boldsymbol{h}_1|\boldsymbol{x})\prod_{t=2}^{T}q_{\boldsymbol{\phi}}(\boldsymbol{h}_{t}|\boldsymbol{h}_{t-1})
+\end{align*}
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="back-to-the-marginal-probability">Back to the marginal probability </h2>
+
+<p>We can then define the marginal probability we want to optimize as</p>
+$$
+\begin{align*}
+\log p(\boldsymbol{x}) &= \log \int p(\boldsymbol{x}, \boldsymbol{h}_{1:T}) d\boldsymbol{h}_{1:T}  \\
+&= \log \int \frac{p(\boldsymbol{x}, \boldsymbol{h}_{1:T})q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x})}{q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x})} d\boldsymbol{h}_{1:T}         && \text{(Multiply by 1 = $\frac{q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x})}{q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x})}$)}\\
+&= \log \mathbb{E}_{q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x})}\left[\frac{p(\boldsymbol{x}, \boldsymbol{h}_{1:T})}{q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x})}\right]         && \text{(Definition of Expectation)}\\
+&\geq \mathbb{E}_{q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x})}\left[\log \frac{p(\boldsymbol{x}, \boldsymbol{h}_{1:T})}{q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x})}\right]         && \text{(Discussed last week)}
+\end{align*}
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="diffusion-models-for-hierarchical-vae-from-url-https-arxiv-org-abs-2208-11970">Diffusion models for hierarchical VAE, from <a href="https://arxiv.org/abs/2208.11970" target="_blank"><tt>https://arxiv.org/abs/2208.11970</tt></a>  </h2>
+
+<p>A Markovian hierarchical Variational Autoencoder with \( T \) hierarchical
+latents.  The generative process is modeled as a Markov chain, where
+each latent \( \boldsymbol{h}_t \) is generated only from the previous latent
+\( \boldsymbol{h}_{t+1} \). Here \( \boldsymbol{z} \) is our latent variable \( \boldsymbol{h} \).
+</p>
+
+<br/><br/>
+<center>
+<p><img src="figures/figure1.png" width="800" align="bottom"></p>
+</center>
+<br/><br/>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="equation-for-the-markovian-hierarchical-vae">Equation for the Markovian hierarchical VAE </h2>
+
+<p>We obtain then</p>
+$$
+\begin{align*}
+\mathbb{E}_{q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x})}\left[\log \frac{p(\boldsymbol{x}, \boldsymbol{h}_{1:T})}{q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x})}\right]
+&= \mathbb{E}_{q_{\boldsymbol{\phi}}(\boldsymbol{h}_{1:T}|\boldsymbol{x})}\left[\log \frac{p(\boldsymbol{h}_T)p_{\boldsymbol{\theta}}(\boldsymbol{x}|\boldsymbol{h}_1)\prod_{t=2}^{T}p_{\boldsymbol{\theta}}(\boldsymbol{h}_{t-1}|\boldsymbol{h}_{t})}{q_{\boldsymbol{\phi}}(\boldsymbol{h}_1|\boldsymbol{x})\prod_{t=2}^{T}q_{\boldsymbol{\phi}}(\boldsymbol{h}_{t}|\boldsymbol{h}_{t-1})}\right]
+\end{align*}
+$$
+
+<p>We will modify this equation when we discuss what are normally called Variational Diffusion Models.</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="variational-diffusion-models">Variational Diffusion Models </h2>
+
+<p>The easiest way to think of a Variational Diffusion Model (VDM) is as a Markovian Hierarchical Variational Autoencoder with three key restrictions:</p>
+
+<ol>
+<li> The latent dimension is exactly equal to the data dimension</li>
+<li> The structure of the latent encoder at each timestep is not learned; it is pre-defined as a linear Gaussian model.  In other words, it is a Gaussian distribution centered around the output of the previous timestep</li>
+<li> The Gaussian parameters of the latent encoders vary over time in such a way that the distribution of the latent at final timestep \( T \) is a standard Gaussian</li>
+</ol>
+<p>The VDM posterior is</p>
+$$
+\begin{align*}
+    q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0) = \prod_{t = 1}^{T}q(\boldsymbol{x}_{t}|\boldsymbol{x}_{t-1})
+\end{align*}
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="second-assumption">Second assumption </h2>
+
+<p>The distribution of each latent variable in the encoder is a Gaussian centered around its previous hierarchical latent.
+Here then, the structure of the encoder at each timestep \( t \) is not learned; it
+is fixed as a linear Gaussian model, where the mean and standard
+deviation can be set beforehand as hyperparameters, or learned as
+parameters.
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="parameterizing-gaussian-encoder">Parameterizing Gaussian encoder </h2>
+
+<div class="alert alert-block alert-block alert-text-normal">
+<b></b>
+<p>
+<p>We parameterize the Gaussian encoder with mean \( \boldsymbol{\mu}_t(\boldsymbol{x}_t) =
+\sqrt{\alpha_t} \boldsymbol{x}_{t-1} \), and variance \( \boldsymbol{\Sigma}_t(\boldsymbol{x}_t) =
+(1 - \alpha_t) \textbf{I} \), where the form of the coefficients are
+chosen such that the variance of the latent variables stay at a
+similar scale; in other words, the encoding process is
+variance-preserving.
+</p>
+</div>
+
+
+<div class="alert alert-block alert-block alert-text-normal">
+<b></b>
+<p>
+<p>Note that alternate Gaussian parameterizations
+are allowed, and lead to similar derivations.  The main takeaway is
+that \( \alpha_t \) is a (potentially learnable) coefficient that can vary
+with the hierarchical depth \( t \), for flexibility.
+</p>
+</div>
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="encoder-transitions">Encoder transitions </h2>
+
+<p>Mathematically, the encoder transitions are defined as</p>
+$$
+\begin{align*}
+    q(\boldsymbol{x}_{t}|\boldsymbol{x}_{t-1}) = \mathcal{N}(\boldsymbol{x}_{t} ; \sqrt{\alpha_t} \boldsymbol{x}_{t-1}, (1 - \alpha_t) \textbf{I}) \label{eq:27}
+\end{align*}
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="third-assumption">Third assumption </h2>
+
+<p>From the third assumption, we know that \( \alpha_t \) evolves over time
+according to a fixed or learnable schedule structured such that the
+distribution of the final latent \( p(\boldsymbol{x}_T) \) is a standard Gaussian.
+We can then update the joint distribution of a Markovian VAE to write
+the joint distribution for a VDM as
+</p>
+
+$$
+\begin{align*}
+p(\boldsymbol{x}_{0:T}) &= p(\boldsymbol{x}_T)\prod_{t=1}^{T}p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t-1}|\boldsymbol{x}_t) \\
+\text{where,}&\nonumber\\
+p(\boldsymbol{x}_T) &= \mathcal{N}(\boldsymbol{x}_T; \boldsymbol{0}, \textbf{I})
+\end{align*}
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="noisification">Noisification </h2>
+
+<p>Collectively, what this set of assumptions describes is a steady
+noisification of an image input over time. We progressively corrupt an
+image by adding Gaussian noise until eventually it becomes completely
+identical to pure Gaussian noise.  See figure on next slide.
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="diffusion-models-from-url-https-arxiv-org-abs-2208-11970">Diffusion models, from <a href="https://arxiv.org/abs/2208.11970" target="_blank"><tt>https://arxiv.org/abs/2208.11970</tt></a>  </h2>
+
+<br/><br/>
+<center>
+<p><img src="figures/figure2.png" width="800" align="bottom"></p>
+</center>
+<br/><br/>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="gaussian-modeling">Gaussian modeling </h2>
+
+<p>Note that our encoder distributions \( q(\boldsymbol{x}_t|\boldsymbol{x}_{t-1}) \) are no
+longer parameterized by \( \boldsymbol{\phi} \), as they are completely modeled as
+Gaussians with defined mean and variance parameters at each timestep.
+Therefore, in a VDM, we are only interested in learning conditionals
+\( p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t-1}|\boldsymbol{x}_{t}) \), so that we can simulate
+new data.  After optimizing the VDM, the sampling procedure is as
+simple as sampling Gaussian noise from \( p(\boldsymbol{x}_T) \) and iteratively
+running the denoising transitions
+\( p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t-1}|\boldsymbol{x}_{t}) \) for \( T \) steps to generate a
+novel \( \boldsymbol{x}_0 \).
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="optimizing-the-variational-diffusion-model">Optimizing the variational diffusion model </h2>
+
+$$
+\begin{align*}
+\log p(\boldsymbol{x})
+&= \log \int p(\boldsymbol{x}_{0:T}) d\boldsymbol{x}_{1:T}\\
+&= \log \int \frac{p(\boldsymbol{x}_{0:T})q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)} d\boldsymbol{x}_{1:T}\\
+&= \log \mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\frac{p(\boldsymbol{x}_{0:T})}{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\right]\\
+&\geq {\mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log \frac{p(\boldsymbol{x}_{0:T})}{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\right]}\\
+&= {\mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log \frac{p(\boldsymbol{x}_T)\prod_{t=1}^{T}p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t-1}|\boldsymbol{x}_t)}{\prod_{t = 1}^{T}q(\boldsymbol{x}_{t}|\boldsymbol{x}_{t-1})}\right]}\\
+&= {\mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log \frac{p(\boldsymbol{x}_T)p_{\boldsymbol{\theta}}(\boldsymbol{x}_0|\boldsymbol{x}_1)\prod_{t=2}^{T}p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t-1}|\boldsymbol{x}_t)}{q(\boldsymbol{x}_T|\boldsymbol{x}_{T-1})\prod_{t = 1}^{T-1}q(\boldsymbol{x}_{t}|\boldsymbol{x}_{t-1})}\right]}\\
+&= {\mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log \frac{p(\boldsymbol{x}_T)p_{\boldsymbol{\theta}}(\boldsymbol{x}_0|\boldsymbol{x}_1)\prod_{t=1}^{T-1}p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t}|\boldsymbol{x}_{t+1})}{q(\boldsymbol{x}_T|\boldsymbol{x}_{T-1})\prod_{t = 1}^{T-1}q(\boldsymbol{x}_{t}|\boldsymbol{x}_{t-1})}\right]}\\
+&= {\mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log \frac{p(\boldsymbol{x}_T)p_{\boldsymbol{\theta}}(\boldsymbol{x}_0|\boldsymbol{x}_1)}{q(\boldsymbol{x}_T|\boldsymbol{x}_{T-1})}\right] + \mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log \prod_{t = 1}^{T-1}\frac{p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t}|\boldsymbol{x}_{t+1})}{q(\boldsymbol{x}_{t}|\boldsymbol{x}_{t-1})}\right]}\\
+\end{align*}
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="continues">Continues </h2>
+
+$$
+\begin{align*}
+\log p(\boldsymbol{x})
+&= {\mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log \frac{p(\boldsymbol{x}_T)p_{\boldsymbol{\theta}}(\boldsymbol{x}_0|\boldsymbol{x}_1)}{q(\boldsymbol{x}_T|\boldsymbol{x}_{T-1})}\right] + \mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log \prod_{t = 1}^{T-1}\frac{p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t}|\boldsymbol{x}_{t+1})}{q(\boldsymbol{x}_{t}|\boldsymbol{x}_{t-1})}\right]}\\
+&= {\mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log p_{\boldsymbol{\theta}}(\boldsymbol{x}_0|\boldsymbol{x}_1)\right] + \mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log \frac{p(\boldsymbol{x}_T)}{q(\boldsymbol{x}_T|\boldsymbol{x}_{T-1})}\right] + \mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[ \sum_{t=1}^{T-1} \log \frac{p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t}|\boldsymbol{x}_{t+1})}{q(\boldsymbol{x}_{t}|\boldsymbol{x}_{t-1})}\right]}\\
+&= {\mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log p_{\boldsymbol{\theta}}(\boldsymbol{x}_0|\boldsymbol{x}_1)\right] + \mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[\log \frac{p(\boldsymbol{x}_T)}{q(\boldsymbol{x}_T|\boldsymbol{x}_{T-1})}\right] + \sum_{t=1}^{T-1}\mathbb{E}_{q(\boldsymbol{x}_{1:T}|\boldsymbol{x}_0)}\left[ \log \frac{p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t}|\boldsymbol{x}_{t+1})}{q(\boldsymbol{x}_{t}|\boldsymbol{x}_{t-1})}\right]}\\
+&= {\mathbb{E}_{q(\boldsymbol{x}_{1}|\boldsymbol{x}_0)}\left[\log p_{\boldsymbol{\theta}}(\boldsymbol{x}_0|\boldsymbol{x}_1)\right] + \mathbb{E}_{q(\boldsymbol{x}_{T-1}, \boldsymbol{x}_T|\boldsymbol{x}_0)}\left[\log \frac{p(\boldsymbol{x}_T)}{q(\boldsymbol{x}_T|\boldsymbol{x}_{T-1})}\right] + \sum_{t=1}^{T-1}\mathbb{E}_{q(\boldsymbol{x}_{t-1}, \boldsymbol{x}_t, \boldsymbol{x}_{t+1}|\boldsymbol{x}_0)}\left[\log \frac{p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t}|\boldsymbol{x}_{t+1})}{q(\boldsymbol{x}_{t}|\boldsymbol{x}_{t-1})}\right]}\\
+\end{align*}
+$$
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="interpretations">Interpretations </h2>
+
+<p>These equations can be interpreted as</p>
+
+<ul>
+<li> \( \mathbb{E}_{q(\boldsymbol{x}_{1}|\boldsymbol{x}_0)}\left[\log p_{\boldsymbol{\theta}}(\boldsymbol{x}_0|\boldsymbol{x}_1)\right] \) can be interpreted as a <b>reconstruction term</b>, predicting the log probability of the original data sample given the first-step latent.  This term also appears in a vanilla VAE, and can be trained similarly.</li>
+<li> \( \mathbb{E}_{q(\boldsymbol{x}_{T-1}|\boldsymbol{x}_0)}\left[D_{KL}(q(\boldsymbol{x}_T|\boldsymbol{x}_{T-1})\vert\vert p(\boldsymbol{x}_T))\right] \) is a <b>prior matching term</b>; it is minimized when the final latent distribution matches the Gaussian prior.  This term requires no optimization, as it has no trainable parameters; furthermore, as we have assumed a large enough \( T \) such that the final distribution is Gaussian, this term effectively becomes zero.</li>
+</ul>
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="the-last-term">The last term </h2>
+
+<ul>
+<li> \( \mathbb{E}_{q(\boldsymbol{x}_{t-1}, \boldsymbol{x}_{t+1}|\boldsymbol{x}_0)}\left[D_{KL}(q(\boldsymbol{x}_{t}|\boldsymbol{x}_{t-1})\vert\vert p_{\boldsymbol{\theta}}(\boldsymbol{x}_{t}|\boldsymbol{x}_{t+1}))\right] \) is a \textit{consistency term}; it endeavors to make the distribution at \( \boldsymbol{x}_t \) consistent, from both forward and backward processes.  That is, a denoising step from a noisier image should match the corresponding noising step from a cleaner image, for every intermediate timestep; this is reflected mathematically by the KL Divergence.  This term is minimized when we train \( p_{\theta}(\boldsymbol{x}_t|\boldsymbol{x}_{t+1}) \) to match the Gaussian distribution \( q(\boldsymbol{x}_t|\boldsymbol{x}_{t-1}) \).</li>
+</ul>
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="diffusion-models-part-2-from-url-https-arxiv-org-abs-2208-11970">Diffusion models, part 2, from <a href="https://arxiv.org/abs/2208.11970" target="_blank"><tt>https://arxiv.org/abs/2208.11970</tt></a>  </h2>
+
+<br/><br/>
+<center>
+<p><img src="figures/figure3.png" width="800" align="bottom"></p>
+</center>
+<br/><br/>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="optimization-cost">Optimization cost </h2>
+
+<p>The cost of optimizing a VDM is primarily dominated by the third term, since we must optimize over all timesteps \( t \).</p>
+
+<p>Under this derivation, all three terms are computed as expectations,
+and can therefore be approximated using Monte Carlo estimates.
+However, actually optimizing the ELBO using the terms we just derived
+might be suboptimal; because the consistency term is computed as an
+expectation over two random variables \( \left\{\boldsymbol{x}_{t-1},
+\boldsymbol{x}_{t+1}\right\} \) for every timestep, the variance of its Monte
+Carlo estimate could potentially be higher than a term that is
+estimated using only one random variable per timestep.  As it is
+computed by summing up \( T-1 \) consistency terms, the final estimated
+value may have high variance for large \( T \) values.
+</p>
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="more-details">More details </h2>
+
+<p>For more details and implementaions, see Calvin Luo at <a href="https://arxiv.org/abs/2208.11970" target="_blank"><tt>https://arxiv.org/abs/2208.11970</tt></a></p>
+
+<!-- FIGURE: [figures/figure4.png, width=800 frac=1.0] -->
+
+<!-- ------------------- end of main content --------------- -->
+<center style="font-size:80%">
+<!-- copyright --> &copy; 1999-2024, Morten Hjorth-Jensen. Released under CC Attribution-NonCommercial 4.0 license
+</center>
+</body>
+</html>
+
