@@ -103,8 +103,8 @@ if __name__ == "__main__":
     """
     
 
-    # Good default config epochs=10, batch=32, eta=0.1, lambda=0.857. Test acc =  0.8566. 
-    # Not as good as epoch=100, batch = 64 (acc = 0.8668), but a lot faster.
+    # Good default config epochs=10, batch=32, eta=0.1, lambda=0.857. Test acc =  0.8566. time = 160s
+    # Not as good as epoch=100, batch = 64 (acc = 0.8668), but a lot faster. time = 1127
     best_batch = 32
     best_epoch = 10
     train_acc, test_acc, best, best_eta, best_lmbd = grid_search_cnn( x_train, y_train, x_test, y_test, eta_vals=eta_vals, lmbd_vals=lmbd_vals, epochs=best_epoch, batch_size=best_batch, save_path="best_cnn.h5")
