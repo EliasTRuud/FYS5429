@@ -67,4 +67,4 @@ conda create --name tf_fashion --file requirements.txt
 ```
 
 ## Notes
-Ideally i wanted to create a full main script to run everything then load in models with weights etc, but i got restricted a bit on time. For code i good amount of lecture notes slides/notebooks + some examples found from other people. Then if i got stuck i made use of claude to fix errors or if i had issue with some plotting.
+Ideally i wanted to create a full main script to run everything then load in models with weights etc, but i got restricted a bit on time. For code i good amount of lecture notes slides/notebooks + some examples found from other people. Then if i got stuck i made use of claude to fix errors or if i had issue with some plotting. At first tried out the QuickDraw sketches, but i was afraid of poor results due to sparse drawings when it came to VAE and GAN especially. As well as the drawings being stored in odd formats (not greyscale images).
