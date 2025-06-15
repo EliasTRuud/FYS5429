@@ -35,7 +35,7 @@ Small project using CNN, Autoencoder, VAE, and GAN on the Fashion-MNIST dataset.
 ## How to Run
 
 ### Quick test
-Run model files directly:
+Run model files directly. This includes basic testing with a subset of samples to test if model works.
 ```bash
 python Models/autoencoder.py
 python Models/cnn.py
@@ -44,7 +44,7 @@ python Models/gan.py
 ```
 
 ### Full training & plots
-Use training scripts:
+Use training scripts. Runs full training with searches. Can easily be modified to extend serach etc.
 ```bash
 python training/train_ae.py
 python training/train_cnn.py
@@ -53,18 +53,18 @@ python training/train_gan.py
 ```
 
 ## Output
-- Plots saved to `plots/` under each model folder.
-- Some model weights saved as `.h5` but not used in current code.
+- Plots saved to `plots/` then a corresponding folder for each model. (e.g plots/cnn)
+- Some model weights saved as `.h5` but not used in current code. Right now bit mixed around in main folder and models/
 
 ## Dataset
-Fashion-MNIST loaded via `dataset.py` (no manual download needed).
+Fashion-MNIST loaded via `dataset.py`, no needed to download.
 
 ## Environment
+Made use of conda with tensorflow 2.10 on windows. This should hopefully work to create a same env on windows.
 Install with:
 ```bash
-conda create --name fashion-mnist --file requirements.txt
+conda create --name tf_fashion --file requirements.txt
 ```
 
 ## Notes
 Ideally i wanted to create a full main script to run everything then load in models with weights etc, but i got restricted a bit on time. For code i good amount of lecture notes slides/notebooks + some examples found from other people. Then if i got stuck i made use of claude to fix errors or if i had issue with some plotting.
-```
